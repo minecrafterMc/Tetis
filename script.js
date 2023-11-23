@@ -133,9 +133,9 @@ function fallen()
     let i = 0;
     while (i != 199)
     {
-        if (board[i].by == cell1.by && board[i].bx == cell1.bx)
+        if (boardArr[i].by == cell1.by && board[i].bx == cell1.bx)
         {
-            board[i].exist = true;
+            boardArr[i].flipExists();
             ret == true;
             break;
         }
