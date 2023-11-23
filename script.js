@@ -113,6 +113,36 @@ drawCell(cell1);
 var boardArr = [0];
 setup();
 setInterval(tick,250)
+function checkFall()
+{
+    let ret = false;
+    let i = 0;
+    while (i != 199)
+    {
+        if (board[i].by == cell1.by + 1 && board[i].bx == cell1.bx && board[i].exist == true)
+        {
+            ret == true;
+            break;
+        }
+        i += 1;
+    }
+    return ret;
+}
+function fallen()
+{
+    let i = 0;
+    while (i != 199)
+    {
+        if (board[i].by == cell1.by && board[i].bx == cell1.bx)
+        {
+            board[i].exist = true;
+            ret == true;
+            break;
+        }
+        i += 1;
+    }
+    return ret;
+}
 function refreshboard()
 {
         let i = 0;
@@ -187,9 +217,9 @@ function cellcheck(x,y)
         }
         }
 function tick() {
-if(ypositions[cell1.bx] == cell1.by + 1)
+if(checkFall())
     {
-        ypositions[cell1.bx] = cell1.by;
+        fallen();
         cell1 = new cell(0,0,25,25,0,1,"blue");
         }
     cell1.move(cell1.xvel,cell1.yvel);
