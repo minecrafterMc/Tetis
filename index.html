@@ -7,20 +7,16 @@
     </head>
     <body>
         <center>
-            <p>choose difficulty</p>
-            <input id="difficulty">
-            <button id="start" onclick="start()">start</button>
-            <br>
+
         <canvas id="canvas" height="605" width="305">test</canvas>
         <br>
         <br>
+        <button onclick='smove(0,-1)' id="up" >up</button>
         <br>
-        <button onclick='cell1.move(0,-1)' id="up" >up</button>
+        <button onclick='smove(-1,0)' id="left">left</button>
+        <button onclick='smove(1,0)' id="right">right</button>
         <br>
-        <button onclick='cell1.move(-1,0)' id="left">left</button>
-        <button onclick='cell1.move(1,0)' id="right">right</button>
-        <br>
-        <button onclick='cell1.move(0,1)' id="down">down</button>
+        <button onclick='smove(0,1)' id="down">down</button>
         <br>
         </center>
         <img id="img">
