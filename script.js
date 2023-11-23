@@ -4,8 +4,8 @@ class board
 {
     constructor(x,y,exist)
     {
-        this.x = x * 25 + x * 5;
-        this.y = y * 25 + y * 5;
+        this.x = x * 25 + x * 5 + 5;
+        this.y = y * 25 + y * 5 + 5;
         this.bx = x;
         this.by = y;
         this.exist = exist;
@@ -20,21 +20,20 @@ class board
     }
     flipExists()
     {
-        if (exist)
+        if (this.exist)
         {
-            exist = false;
+            this.exist = false;
             this.color = "white";
         }
         else
         {
-            exist = true;
+            this.exist = true;
             this.color = "black";
         }
         this.drawBoard();
     }
     drawBoard()
     {
-
         drawCell(this);
     }
 }
@@ -119,9 +118,9 @@ function checkFall()
     let i = 0;
     while (i != 199)
     {
-        if (board[i].by == cell1.by + 1 && board[i].bx == cell1.bx && board[i].exist == true)
+        if (boardArr[i].by == cell1.by + 1 && boardArr[i].bx == cell1.bx && boardArr[i].exist == true || cell1.getPosition(1) == 19)
         {
-            ret == true;
+            ret = true;
             break;
         }
         i += 1;
@@ -131,9 +130,10 @@ function checkFall()
 function fallen()
 {
     let i = 0;
+    let ret = false;
     while (i != 199)
     {
-        if (boardArr[i].by == cell1.by && board[i].bx == cell1.bx)
+        if (boardArr[i].by == cell1.by && boardArr[i].bx == cell1.bx)
         {
             boardArr[i].flipExists();
             ret == true;
@@ -208,7 +208,7 @@ function cellcheck(x,y)
         {
             boardArr[i] = (new board(a,b,false));
             a += 1;
-            if (a == 10)
+            if (a == 9)
             {
                 a = 0;
                 b += 1;
