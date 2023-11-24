@@ -33,6 +33,10 @@ class board
         }
         this.drawBoard();
     }
+    getExist()
+    {
+      return this.exist;
+    }
     drawBoard()
     {
         drawCell(this);
@@ -114,6 +118,8 @@ drawCell(cell1);
 var shapetype = 1;
 var shape = [0];
 var boardArr = [0];
+var pause = true;
+var points = 0;
 setup();
 generateShape(0,0);
 setInterval(tick,250)
@@ -470,25 +476,25 @@ function generateShape(x,y)
     }
     if (shapetype == 13)
     {
-        shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
+        shape[0] = new cell(x,y,25,25,0,1,"blue",true,0);
         shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
         shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
         shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
-        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",false,4);
+        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",true,4);
         shape[5] = new cell(x + 1,y + 1,25,25,0,1,"blue",false,5);
         shape[6] = new cell(x + 2,y + 1,25,25,0,1,"blue",false,6);
         shape[7] = new cell(x + 3,y + 1,25,25,0,1,"blue",false,7);
-        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",false,8);
+        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",true,8);
         shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
         shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
         shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
-        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",true,12);
         shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
         shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
         shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
         shape[16] = x;
-        shape[17] = x + 1;
-        shape[18] = y + 1;
+        shape[17] = x;
+        shape[18] = y;
         shape[19] = y + 3;
     }
     if (shapetype == 14)
@@ -505,13 +511,13 @@ function generateShape(x,y)
         shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
         shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
         shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
-        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
-        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
-        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
-        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",true,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",true,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",true,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",true,15);
         shape[16] = x;
-        shape[17] = x + 1;
-        shape[18] = y + 1;
+        shape[17] = x + 3;
+        shape[18] = y + 3;
         shape[19] = y + 3;
     }
     if (shapetype == 15)
@@ -574,6 +580,8 @@ function drawShape()
 }
 function smove(x,y)
 {
+  if (pause)
+  {
     if (shape[16] != 0 && x != 1 || shape[17] != 9 && x != -1)
     {
     if (shape[18] != 0 && y != 1 || shape[19] != 19 && y != -1)
@@ -612,6 +620,18 @@ function smove(x,y)
 }
     }
 }
+}
+function pause2()
+{
+  if (pause)
+  {
+    pause = false;
+  }
+  else 
+  {
+    pause = true;
+  }
+}
 function boardFall(mrow)
 {
     let i = mrow;
@@ -629,6 +649,22 @@ function id(text,x,y)
 {
     ctx.fillStyle = "red";
     ctx.fillText(text,x,y + 15);
+}
+function checkLose()
+{
+  let i = 0;
+  while (i != 29)
+  {
+    if (boardArr[i].getExist())
+    {
+      pause = false;
+      fallenShape();
+      shape = [0];
+      document.getElementById("controlls").style.display = "none";
+      break;
+    }
+    i += 1;
+  }
 }
 function checkRows()
 {
@@ -658,6 +694,7 @@ function checkRows()
                         a += 1;
                     }
                     boardFall(i);
+                    points += 500;
                 }
                 column = 0;
                 row += 1;
@@ -731,7 +768,7 @@ function fallenShape()
         }
         i += 1;
     }
-    shapetype = RandomInt(0,12);
+    shapetype = RandomInt(0,14);
 }
 function fallen(id)
 {
@@ -823,15 +860,19 @@ function cellcheck(x,y)
         }
 function tick() 
 {
+  checkLose();
+  if(pause)
+  {
+    document.getElementById("points").innerHTML = points;
     checkRows();
     refreshboard();
     drawShape();
 if(checkFallShape() === true)
     {
-        console.log("after if");
         fallenShape();
-        generateShape(0,0);
-        
+        generateShape(4,0);
+        points += 50;
     }
     smove(0,1);
+  }
 }
