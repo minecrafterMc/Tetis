@@ -116,12 +116,16 @@ class cell
 var cell1 = new cell(0,0,25,25,0,1,"blue");
 drawCell(cell1);
 var shapetype = 1;
+var shapetypeb = 1;
 var shape = [0];
+var newshape = [0];
 var boardArr = [0];
 var pause = true;
 var points = 0;
+var shapeRotation = 1;
+var dir = 0;
 setup();
-generateShape(0,0);
+generateShape(4,0);
 setInterval(tick,250)
 /*
 type 1 
@@ -167,9 +171,9 @@ type 8
 */
 function generateShape(x,y)
 {
-    if (shapetype == 0)
+    if (shapetype == -1)
     {
-        shape[0] = new cell(x,y,25,25,0,1,"blue",true,0);
+        shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
         shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
         shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
         shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
@@ -212,7 +216,6 @@ function generateShape(x,y)
         shape[17] = x + 2;
         shape[18] = y + 1;
         shape[19] = y + 3;
-        smove(-1,-1);
     }
     if (shapetype == 2)
     {
@@ -236,7 +239,6 @@ function generateShape(x,y)
         shape[17] = x + 2;
         shape[18] = y + 1;
         shape[19] = y + 2;
-        smove(0,-1);
     }
     if (shapetype == 3)
     {
@@ -260,7 +262,6 @@ function generateShape(x,y)
         shape[17] = x + 1;
         shape[18] = y + 1;
         shape[19] = y + 3;
-        smove(-1,-1);
     }
     if (shapetype == 4)
     {
@@ -284,7 +285,6 @@ function generateShape(x,y)
         shape[17] = x + 2;
         shape[18] = y + 2;
         shape[19] = y + 3;
-        smove(0,-2);
     }
     if (shapetype == 5)
     {
@@ -308,7 +308,6 @@ function generateShape(x,y)
         shape[17] = x + 2;
         shape[18] = y + 2;
         shape[19] = y + 3;
-        smove(0,-2);
     }
     if (shapetype == 6)
     {
@@ -332,7 +331,6 @@ function generateShape(x,y)
         shape[17] = x + 1;
         shape[18] = y + 1;
         shape[19] = y + 3;
-        smove(0,-1);
     }
     if (shapetype == 7)
     {
@@ -356,7 +354,6 @@ function generateShape(x,y)
         shape[17] = x + 2;
         shape[18] = y + 2;
         shape[19] = y + 3;
-        smove(0,-2);
     }
     if (shapetype == 8)
     {
@@ -380,7 +377,6 @@ function generateShape(x,y)
         shape[17] = x + 1;
         shape[18] = y + 1;
         shape[19] = y + 3;
-        smove(0,-1);
     }
     if (shapetype == 9)
     {
@@ -522,6 +518,29 @@ function generateShape(x,y)
     }
     if (shapetype == 15)
     {
+        shape[0] = new cell(x,y,25,25,0,1,"blue",true,0);
+        shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
+        shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
+        shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
+        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",true,4);
+        shape[5] = new cell(x + 1,y + 1,25,25,0,1,"blue",false,5);
+        shape[6] = new cell(x + 2,y + 1,25,25,0,1,"blue",false,6);
+        shape[7] = new cell(x + 3,y + 1,25,25,0,1,"blue",false,7);
+        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",true,8);
+        shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
+        shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
+        shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",true,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[16] = x;
+        shape[17] = x;
+        shape[18] = y;
+        shape[19] = y + 3;
+    }
+    if (shapetype == 16)
+    {
         shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
         shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
         shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
@@ -534,16 +553,16 @@ function generateShape(x,y)
         shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
         shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
         shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
-        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
-        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
-        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
-        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",true,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",true,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",true,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",true,15);
         shape[16] = x;
         shape[17] = x + 1;
         shape[18] = y + 1;
         shape[19] = y + 3;
     }
-    if (shapetype == 16)
+    if (shapetype == 17)
     {
         shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
         shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
@@ -566,6 +585,76 @@ function generateShape(x,y)
         shape[18] = y + 1;
         shape[19] = y + 3;
     }
+    if (shapetype == 18)
+    {
+        shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
+        shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
+        shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
+        shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
+        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",false,4);
+        shape[5] = new cell(x + 1,y + 1,25,25,0,1,"blue",false,5);
+        shape[6] = new cell(x + 2,y + 1,25,25,0,1,"blue",false,6);
+        shape[7] = new cell(x + 3,y + 1,25,25,0,1,"blue",false,7);
+        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",false,8);
+        shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
+        shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
+        shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[16] = x;
+        shape[17] = x + 1;
+        shape[18] = y + 1;
+        shape[19] = y + 3;
+    }
+    if (shapetype == 19)
+    {
+        shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
+        shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
+        shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
+        shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
+        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",false,4);
+        shape[5] = new cell(x + 1,y + 1,25,25,0,1,"blue",false,5);
+        shape[6] = new cell(x + 2,y + 1,25,25,0,1,"blue",false,6);
+        shape[7] = new cell(x + 3,y + 1,25,25,0,1,"blue",false,7);
+        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",false,8);
+        shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
+        shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
+        shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[16] = x;
+        shape[17] = x + 1;
+        shape[18] = y + 1;
+        shape[19] = y + 3;
+    }
+    if (shapetype == 20)
+    {
+        shape[0] = new cell(x,y,25,25,0,1,"blue",false,0);
+        shape[1] = new cell(x + 1,y,25,25,0,1,"blue",false,1);
+        shape[2] = new cell(x + 2,y,25,25,0,1,"blue",false,2);
+        shape[3] = new cell(x + 3,y,25,25,0,1,"blue",false,3);
+        shape[4] = new cell(x,y + 1,25,25,0,1,"blue",false,4);
+        shape[5] = new cell(x + 1,y + 1,25,25,0,1,"blue",false,5);
+        shape[6] = new cell(x + 2,y + 1,25,25,0,1,"blue",false,6);
+        shape[7] = new cell(x + 3,y + 1,25,25,0,1,"blue",false,7);
+        shape[8] = new cell(x,y + 2,25,25,0,1,"blue",false,8);
+        shape[9] = new cell(x + 1,y + 2,25,25,0,1,"blue",false,9);
+        shape[10] = new cell(x + 2,y + 2,25,25,0,1,"blue",false,10);
+        shape[11] = new cell(x + 3,y + 2,25,25,0,1,"blue",false,11);
+        shape[12] = new cell(x,y + 3,25,25,0,1,"blue",false,12);
+        shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
+        shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
+        shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
+        shape[16] = x;
+        shape[17] = x + 1;
+        shape[18] = y + 1;
+        shape[19] = y + 3;
+    }
+    
     drawShape();
     
 }
@@ -672,6 +761,8 @@ function checkRows()
         let column = 0;
         let row = 0;
         let inRow = 0;
+        let emptyInRow = 0;
+        let emptyInRow2 = 0;
         let a = 0;
         while (i != 200)
         {
@@ -680,6 +771,17 @@ function checkRows()
             if (boardArr[i].exist)
             {
                 inRow += 1;
+            }
+            if (i > 9)
+            {
+            if (!boardArr[i].exist)
+            {
+               emptyInRow += 1;
+            }
+            if (!boardArr[i - 10].exist)
+            {
+               emptyInRow2 += 1;
+            }
             }
             column += 1;
             if (column == 10)
@@ -693,12 +795,21 @@ function checkRows()
                         i += 1;
                         a += 1;
                     }
-                    boardFall(i);
+                   
                     points += 500;
+                    break;
+                }
+                if (emptyInRow == 10 && emptyInRow2 > 0)
+                {
+                    i -= 9;
+                    boardFall(i);
+                    break;
                 }
                 column = 0;
                 row += 1;
                 inRow = 0;
+                emptyInRow = 0;
+                emptyInRow2 = 0;
             }
             i += 1;
         }
@@ -757,7 +868,7 @@ function checkFall(id)
     }
     return ret;
 }
-function fallenShape()
+function fallenShape(dir)
 {
     let i = 0;
     while (i != 16)
@@ -768,7 +879,43 @@ function fallenShape()
         }
         i += 1;
     }
-    shapetype = RandomInt(0,14);
+    shapetypeb = RandomInt(1,4);
+    shapeRotation = 1;
+    shapetype = shapetypeb * 4 + shapeRotation - 4;
+}
+function srotate(dir)
+{
+  if (shapeRotation + dir == 5 || shapeRotation + dir == 0)
+  {
+    if (shapeRotation + dir == 5)
+    {
+      shapeRotation = 1;
+    }
+    else if (shapeRotation + dir == 0)
+    {
+      shapeRotation = 4;
+    }
+  
+  }
+  else 
+  {
+    shapeRotation += dir;
+  }
+  shapetype = shapetypeb * 4 + shapeRotation - 4;
+  generateShape(shape[0].bx, shape[0].by);
+  let i = 0;
+  while (i != 16)
+  {
+    console.log(i + " " + boardArr[shape[i].aposition].exist)
+    if (boardArr[shape[i].aposition].exist && shape[i].exist)
+    {
+      shapeRotation -= dir;
+      shapetype = shapetypeb * 4 + shapeRotation - 4;
+      generateShape(shape[0].bx, shape[0].by);
+      break;
+    }
+    i += 1;
+  }
 }
 function fallen(id)
 {
@@ -782,7 +929,7 @@ function refreshboard()
         while (i != 200)
         {
             drawCell2(boardArr[i]);
-            //id(i.toString(),boardArr[i].x,boardArr[i].y);
+            id(i.toString(),boardArr[i].x,boardArr[i].y);
             i += 1;
         }
 }
