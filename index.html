@@ -2,23 +2,30 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
         <title></title>
     </head>
     <body>
         <center>
-
+            <table>
+                <td>
         <canvas id="canvas" height="605" width="305">test</canvas>
-        <p id="points"></p>
+    </td>
+    <td>
+        <center>
+        <h2 id="points"></h2>
         <div id="controlls">
-        <button onclick="srotate(-1);">l rot</button>
-        <button onclick='smove(-1,0)' id="left">left</button>
-        <button onclick='smove(1,0)' id="right">right</button>
-        <button onclick="srotate(1)">r rot</button>
+            
+        <button onclick="srotate(-1);" class="buttons">l rot</button>
+        <button onclick='smove(-1,0)' id="left" class="buttons">left</button>
+        <button onclick='smove(1,0)' id="right" class="buttons">right</button>
+        <button onclick="srotate(1)" class="buttons">r rot</button>
         <br>
-        <button onclick='fastdown = true;' id="down">down</button>
+        <button onclick='fastdown = true;' id="down" class="buttons">down</button>
         <br>
         <br>
-        <button onclick="pause2();">pause</button>
+        <button onclick="pause2();" class="buttons">pause</button>
+    </center>
         </div>
         <p>pc controlls:<br>
         a - move shape left<br>
@@ -27,6 +34,8 @@
         left arrow - rotate shape left<br>
         right arrow - rotate shape right<br>
         e - pause<br></p>
+    </td>
+    </table>
         </center>
         <img id="img">
         <script src="script.js"> </script>

@@ -518,8 +518,8 @@ function generateShape(x,y)
         shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",true,14);
         shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",true,15);
         shape[16] = x;
-        shape[17] = x + 1;
-        shape[18] = y + 1;
+        shape[17] = x + 3;
+        shape[18] = y + 3;
         shape[19] = y + 3;
     }
     if (shapetype == 17)
@@ -610,9 +610,9 @@ function generateShape(x,y)
         shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
         shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
         shape[16] = x;
-        shape[17] = x + 2;
+        shape[17] = x + 1;
         shape[18] = y;
-        shape[19] = y + 1;
+        shape[19] = y + 2;
     }
     if (shapetype == 21)
     {
