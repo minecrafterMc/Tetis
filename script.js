@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 ctx.font = "12px Arial";
+const img    = canvas.toDataURL('image/png')
 class board
 {
     constructor(x,y,exist)
@@ -906,6 +907,7 @@ function checkLose()
       fallenShape();
       shape = [0];
       document.getElementById("controlls").style.display = "none";
+      document.getElementById("controlls2").style.display = "none";
       break;
     }
     i += 1;

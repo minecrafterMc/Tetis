@@ -1,6 +1,23 @@
 .buttons
 {
-    width: 90px;
-    height: 90px;
+    width: 45px;
+    height: 180px;
     background-color: darkcyan;
+}
+#canvas{
+  position: relative;
+}
+#controlls
+{
+  position: absolute;
+  left: 290px;
+  top: 30px;
+  opacity: 70%;
+}
+#controlls2
+{
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  opacity: 70%;
 }
