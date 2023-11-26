@@ -564,7 +564,7 @@ function generateShape(x,y)
         shape[13] = new cell(x + 1,y + 3,25,25,0,1,"blue",false,13);
         shape[14] = new cell(x + 2,y + 3,25,25,0,1,"blue",false,14);
         shape[15] = new cell(x + 3,y + 3,25,25,0,1,"blue",false,15);
-        shape[16] = x;
+        shape[16] = x + 1;
         shape[17] = x + 2;
         shape[18] = y;
         shape[19] = y + 2;
@@ -590,7 +590,7 @@ function generateShape(x,y)
         shape[16] = x;
         shape[17] = x + 2;
         shape[18] = y;
-        shape[19] = y + 2;
+        shape[19] = y + 1;
     }
     if (shapetype == 20)
     {
@@ -1108,6 +1108,7 @@ else
 }
     i += 1;
 }
+console.log(shapetype);
 }
 function fallen(id)
 {
@@ -1163,7 +1164,14 @@ function cellcheck(x,y)
     return ret;
 }
     function setup()
-    {
+    {   
+        document.getElementById("controlls").style.display = "none";
+        document.getElementById("controlls2").style.display = "none";
+        if (navigator.userAgent.indexOf("Android") != -1)
+        {
+            document.getElementById("controlls").style.display = "block";
+            document.getElementById("controlls2").style.display = "block";
+        }
         window.addEventListener("keydown", event => {
             if (event.key == "a") {
               smove(-1,0);

@@ -4,9 +4,7 @@
     height: 180px;
     background-color: darkcyan;
 }
-#canvas{
-  position: relative;
-}
+
 #controlls
 {
   position: absolute;
