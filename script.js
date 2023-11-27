@@ -816,7 +816,7 @@ function smove(x,y)
     let a = false;
     try
     {
-    a = checkFall();
+    a = checkFallShape();
     }
     finally
     {
@@ -998,7 +998,6 @@ function checkEmptyRows()
         }
             
 }
-        
 
 function checkMove(spaces,a)
 {
@@ -1043,12 +1042,18 @@ function checkFall(id)
     let i = 0;
     while (i != 200)
     {
+      try 
+      {
         if (boardArr[i].by == shape[id].by + 1 && boardArr[i].bx == shape[id].bx && boardArr[i].exist && shape[id].exist|| shape[19] == 19)
         {
             ret = true;
             break;
         }
+      }
+      finally
+      {
         i += 1;
+      }
     }
     return ret;
 }
@@ -1171,6 +1176,9 @@ function cellcheck(x,y)
         {
             document.getElementById("controlls").style.display = "block";
             document.getElementById("controlls2").style.display = "block";
+            document.getElementById("canvas").style.position = "absolute";
+            document.getElementById("canvas").style.left = "40px";
+            document.getElementById("canvas").style.top = "15px";
         }
         window.addEventListener("keydown", event => {
             if (event.key == "a") {

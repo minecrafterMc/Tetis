@@ -2,20 +2,19 @@
 {
     width: 45px;
     height: 180px;
-    background-color: darkcyan;
+    background-color: grey;
 }
-
 #controlls
 {
   position: absolute;
   left: 290px;
   top: 30px;
-  opacity: 70%;
+  opacity: 60%;
 }
 #controlls2
 {
   position: absolute;
   left: 50px;
   top: 30px;
-  opacity: 70%;
+  opacity: 60%;
 }
