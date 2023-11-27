@@ -1179,6 +1179,8 @@ function cellcheck(x,y)
             document.getElementById("canvas").style.position = "absolute";
             document.getElementById("canvas").style.left = "40px";
             document.getElementById("canvas").style.top = "15px";
+            document.getElementById("points").style.position = "absolute";
+            document.getElementById("points").style.top = "700px";
         }
         window.addEventListener("keydown", event => {
             if (event.key == "a") {
