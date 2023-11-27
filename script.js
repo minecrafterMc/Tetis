@@ -1076,6 +1076,7 @@ function fallenShape()
 }
 function srotate(dir)
 {
+  let i = 0;
   if (shapeRotation + dir == 5 || shapeRotation + dir == 0)
   {
     if (shapeRotation + dir == 5)
@@ -1094,7 +1095,17 @@ function srotate(dir)
   }
   shapetype = shapetypeb * 4 + shapeRotation - 4;
   generateShape(shape[0].bx, shape[0].by);
-  let i = 0;
+  i = 0;
+      while (i != 15)
+      {
+        if (shape[i].aposition > 199)
+        {
+          generateShape(4,0);
+          break;
+        }
+        i += 1;
+      }
+  i = 0;
   while (i != 16)
   {
     if (shape[i].aposition < 200)
@@ -1104,6 +1115,7 @@ function srotate(dir)
       shapeRotation -= dir;
       shapetype = shapetypeb * 4 + shapeRotation - 4;
       generateShape(shape[0].bx, shape[0].by);
+      
       break;
     }
 }
