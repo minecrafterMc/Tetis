@@ -1110,7 +1110,7 @@ function srotate(dir)
   {
     if (shape[i].aposition < 200)
     {
-    if (boardArr[shape[i].aposition].exist && shape[i].exist)
+    if (boardArr[shape[i].aposition].exist && shape[i].exist || shape[i].bx > 9 && shape[i].exist || shape[i].bx < 0 && shape[i].exist)
     {
       shapeRotation -= dir;
       shapetype = shapetypeb * 4 + shapeRotation - 4;
@@ -1192,7 +1192,7 @@ function cellcheck(x,y)
             document.getElementById("canvas").style.left = "40px";
             document.getElementById("canvas").style.top = "15px";
             document.getElementById("points").style.position = "absolute";
-            document.getElementById("points").style.top = "700px";
+            document.getElementById("points").style.top = "650px";
         }
         window.addEventListener("keydown", event => {
             if (event.key == "a") {
