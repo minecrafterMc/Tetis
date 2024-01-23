@@ -7,14 +7,22 @@
 #controlls
 {
   position: absolute;
-  left: 290px;
+  left: 260px;
   top: 30px;
   opacity: 60%;
 }
 #controlls2
 {
   position: absolute;
-  left: 50px;
+  left: 20px;
   top: 30px;
   opacity: 60%;
+}
+.print
+{
+  z-index: 1;
+}
+.canvas
+{
+  z-index: 10;
 }
