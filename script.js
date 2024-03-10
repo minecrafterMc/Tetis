@@ -114,7 +114,77 @@ class cell
         }
     }
 }
+var colorIndex = 1;
+var colorPaletes = [
+{
+  "name": "blue light mode",
+  "shapecolor": "cyan",
+  "emptycolor": "white",
+  "trailcolor": "lightblue",
+  "fallencolor": "grey",
+  "textcolor": "blue"
+},
+{
+  "name": "ocean",
+  "shapecolor": "cyan",
+  "emptycolor": "darkblue",
+  "trailcolor": "lightblue",
+  "fallencolor": "grey",
+  "textcolor": "white"
+},
+{
+  "name": "default",
+  "shapecolor": "#fc0303",
+  "emptycolor": "#039dfc",
+  "trailcolor": "#0877ff",
+  "fallencolor": "#ababab",
+  "textcolor": "white"
+},
+{
+  "name": "ultra dark mode",
+  "shapecolor": "darkgrey",
+  "emptycolor": "black",
+  "trailcolor": "grey",
+  "fallencolor": "lightgrey",
+  "textcolor": "white"
+},
+{
+  "name": "matrix",
+  "shapecolor": "green",
+  "emptycolor": "black",
+  "trailcolor": "lime",
+  "fallencolor": "darkgreen",
+  "textcolor": "white"
+},
+{
+  "name": "blue dark mode",
+  "shapecolor": "darkblue",
+  "emptycolor": "black",
+  "trailcolor": "blue",
+  "fallencolor": "grey",
+  "textcolor": "white"
+},
+{
 
+  "name": "amogus",
+  "shapecolor": "red",
+  "emptycolor": "grey",
+  "trailcolor": "grey",
+  "fallencolor": "white",
+  "textcolor": "white"
+},
+{
+
+  "name": "1.5",
+
+  "shapecolor": "#105b66",
+  "emptycolor": "#292929",
+  "trailcolor": "#283d40",
+  "fallencolor": "#092529",
+  "textcolor": "white"
+}
+]
+var maxshapeid = 7;
 var cell1 = new cell(0,0,25,25,0,1,"blue");
 drawCell(cell1);
 var shapetype = 1;
@@ -129,7 +199,7 @@ var shapeRotation = 1;
 var dir = 0;
 var fastdown = false;
 var IID = NaN;
-var shapetypec = RandomInt(1,7);
+var shapetypec = RandomInt(1,maxshapeid);
 var fallencolor = "#092529";
 var emptycolor = "#292929";
 var trailcolor = "#283d40";
@@ -140,6 +210,115 @@ setup();
 generateShape(0,0,"dis");
 generateShape(4,0,"canvas");
 var tickID = setInterval(tick,250);
+setInterval(screenadjust,100);
+//whoever sees this, please dont abuse this link. this webhook is connected to my private discord server. you abusing it would just annoy me
+const whurl ="https://discord.com/api/webhooks/1204492141544345600/L6juWPsDzT9CgW8-wFuIcmqYIzgduJLRDPEOMdWx1meZ2SYLD1tSTdiy5WA1ID5pUre7"
+
+var msg = {
+    "content": "someone just started playing tetis!"
+}
+
+//fetch(whurl + "?wait=true", {"method":"POST", "headers": {"content-type": "application/json"},"body": JSON.stringify(msg)});
+function playsound(sound)
+{
+  if (!document.getElementById("soundtoggle").checked)
+  {
+  let audio = new Audio(sound);
+  audio.play();
+  }
+}
+function changecolor()
+{
+  colorIndex += 1;
+  if (colorIndex > colorPaletes.length - 1 || colorIndex < 0)
+  {
+    colorIndex = 0;
+  }
+  document.getElementById("colorname").innerHTML = colorPaletes[colorIndex].name;
+  document.getElementById("loose").style.backgroundColor = colorPaletes[colorIndex].emptycolor;
+  document.getElementById("colorname").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("points").style.color = colorPaletes[colorIndex].textcolor;
+  emptycolor = colorPaletes[colorIndex].emptycolor;
+  document.getElementById("body").style.backgroundColor = emptycolor;
+  document.getElementById("loose").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("soundtoggletext").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("vibrationtoggletext").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("changecolortext").style.color = colorPaletes[colorIndex].textcolor;
+  trailcolor = colorPaletes[colorIndex].trailcolor;
+  fallencolor = colorPaletes[colorIndex].fallencolor;
+  shapecolor = colorPaletes[colorIndex].shapecolor;
+  recolor();
+  displayshape2();
+  generateShape(shape[0].bx,shape[0].by,"dis");
+  srotate(-1);
+  srotate(1);
+  let i = 0;
+  while (i != 200)
+  {
+    if (boardArr[i].exist)
+    {
+    boardArr[i].color = fallencolor;
+    }
+    else {
+    boardArr[i].color = emptycolor;
+    }
+    drawCell(boardArr[i]);
+    i += 1;
+  }
+  
+  
+  refreshboard();
+  drawShape();
+}
+function changecolor2()
+{
+  colorIndex -= 1;
+  if (colorIndex < 0)
+  {
+    colorIndex = colorPaletes.length - 1;
+  }
+  document.getElementById("colorname").innerHTML = colorPaletes[colorIndex].name;
+  document.getElementById("loose").style.backgroundColor = colorPaletes[colorIndex].emptycolor;
+  document.getElementById("colorname").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("points").style.color = colorPaletes[colorIndex].textcolor;
+  emptycolor = colorPaletes[colorIndex].emptycolor;
+  document.getElementById("body").style.backgroundColor = emptycolor;
+  document.getElementById("loose").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("soundtoggletext").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("vibrationtoggletext").style.color = colorPaletes[colorIndex].textcolor;
+  document.getElementById("changecolortext").style.color = colorPaletes[colorIndex].textcolor;
+  trailcolor = colorPaletes[colorIndex].trailcolor;
+  fallencolor = colorPaletes[colorIndex].fallencolor;
+  shapecolor = colorPaletes[colorIndex].shapecolor;
+  recolor();
+  displayshape2();
+  generateShape(shape[0].bx, shape[0].by, "dis");
+  srotate(-1);
+  srotate(1);
+  let i = 0;
+  while (i != 200)
+  {
+    if (boardArr[i].exist)
+    {
+      boardArr[i].color = fallencolor;
+    }
+    else {
+      boardArr[i].color = emptycolor;
+    }
+    drawCell(boardArr[i]);
+    i += 1;
+  }
+  refreshboard();
+  drawShape();
+}
+function sendPoints()
+{
+    msg = {
+        "content": "someone just got " + points + " points!!!"
+    }
+    
+    fetch(whurl + "?wait=true", {"method":"POST", "headers": {"content-type": "application/json"},"body": JSON.stringify(msg)});
+}
 function recolor()
 {
   let i = 0;
@@ -1057,12 +1236,19 @@ function checkLose()
   {
     if (boardArr[i].getExist())
     {
+      playsound("lose.mp3");
         clearInterval(tickID);
+        document.getElementById("loose").style.display = "block";
+        document.getElementById("loosepoints").innerHTML = "you got " + points + " points";
       pause = false;
       fallenShape();
       shape = [0];
       document.getElementById("controlls").style.display = "none";
       document.getElementById("controlls2").style.display = "none";
+      if (points > 2000)
+      {
+        sendPoints();
+      }
       break;
     }
     i += 1;
@@ -1223,8 +1409,13 @@ function fallenShape()
         }
         i += 1;
     }
+    playsound("blockFall.mp3")
+    if (!document.getElementById("vibrationtoggle").checked)
+    {
+      navigator.vibrate(100);
+    }
     shapetypeb = shapetypec;
-    shapetypec = RandomInt(1,7);
+    shapetypec = RandomInt(1,maxshapeid);
     generateShape(0,0,"dis");
     shapeRotation = 1;
     shapetype = shapetypeb * 4 + shapeRotation - 4;
@@ -1308,6 +1499,16 @@ function refreshboard()
             i += 1;
         }
 }
+function opensettings()
+{
+    pause = false;
+    document.getElementById("settingsPage2").style.display = "block";
+}
+function closesettings()
+{
+  pause = true;
+  document.getElementById("settingsPage2").style.display = "none";
+}
 const getValueByIndex = (object, index) => {
 
     return Object.values(object)[index];
@@ -1353,18 +1554,37 @@ function cellcheck(x,y)
     
     return ret;
 }
+function closepchelp()
+{
+    pause = true;
+    document.getElementById("pchelp").style.display = "none";
+}
     function setup()
     {   
         document.getElementById("controlls").style.display = "none";
         document.getElementById("controlls2").style.display = "none";
+        document.getElementById("loose").style.display = "none";
         if (navigator.userAgent.indexOf("Android") != -1 || navigator.userAgent.indexOf("IOS") != -1)
         {
           document.getElementById("pchelp").style.display = "none";
             document.getElementById("controlls").style.display = "block";
             document.getElementById("controlls2").style.display = "block";
+            
+            }
+            else
+            {
+                pause = false;
+                document.getElementById("pchelp").style.position = "absolute";
+                document.getElementById("pchelp").style.top = window.innerHeight / 20 + "px";
+                document.getElementById("pchelp").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + "px";
+            }
             document.getElementById("canvas").style.position = "absolute";
-            document.getElementById("canvas").style.left = "10px";
-            document.getElementById("canvas").style.top = "15px";
+             document.getElementById("loose").style.position = "absolute";
+              document.getElementById("loose").style.top = "0px";
+                document.getElementById("loose").style.left = "0px";
+            //document.getElementById("canvas").style.left = "10px";
+            //document.getElementById("canvas").style.top = "15px";
+            document.getElementById("canvas").style.height = window.innerHeight + "px";
             document.getElementById("points").style.position = "absolute";
             document.getElementById("points").style.top = "610px";
             document.getElementById("2display").style.top = "15px";
@@ -1372,9 +1592,8 @@ function cellcheck(x,y)
             document.getElementById("2display").style.position = "absolute";
             document.getElementById("2display").style.width = "50px";
             document.getElementById("2display").style.height = "50px";
-            }
-    
-        
+            document.getElementById("settings").style.position = "absolute";
+            document.getElementById("settingsPage2").style.position = "absolute";
         
         window.addEventListener("keydown", event => {
             if (event.key == "a") {
@@ -1438,6 +1657,7 @@ function cellcheck(x,y)
             }
             i += 1;
         }
+        closesettings();
         }
         function fastfall()
         {
@@ -1454,9 +1674,17 @@ function cellcheck(x,y)
         }
 function tick() 
 {
+
   checkLose();
   if(pause)
   {
+    if (colorIndex == 6 - (colorPaletes.length - 1))
+    {
+      maxshapeid = 8;
+    }
+    else{
+      maxshapeid = 7;
+    }
     document.getElementById("points").innerHTML = points;
     checkRows();
     checkEmptyRows();
@@ -1476,3 +1704,88 @@ if(checkFallShape())
     smove(0,1);
   }
 }
+function onetick()
+{
+  document.getElementById("points").innerHTML = points;
+  checkRows();
+  checkEmptyRows();
+  refreshboard();
+  drawShape();
+  if (fastdown)
+  {
+    IID = setInterval(fastfall, 50);
+    fastdown = false;
+  }
+  if (checkFallShape())
+  {
+    fallenShape();
+    generateShape(4, 0);
+    points += 50;
+  }
+  smove(0, 1);
+}
+function changebuttons(funwidth,funheight)
+{
+    let buttons = document.getElementsByClassName("buttons");
+    let i = 0;
+    while (i != buttons.length )
+    {
+        document.getElementsByClassName("buttons")[i].style.width = funwidth;
+        document.getElementsByClassName("buttons")[i].style.height = funheight;
+        i += 1;
+    }
+}
+function screenadjust() 
+{
+    document.getElementById("canvas").style.top = window.innerHeight / 20 + "px";
+    document.getElementById("settingsPage2").style.zIndex = 14;
+    document.getElementById("settingsPage2").style.top = window.innerHeight / 20 + "px";
+    document.getElementById("controlls").style.top = window.innerHeight / 20 + "px";
+    document.getElementById("controlls2").style.top = window.innerHeight / 20 + "px";
+    document.getElementById("controlls2").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + "px";
+    document.getElementById("loose").style.width = window.innerWidth + "px";
+    document.getElementById("loose").style.height = window.innerHeight + "px";
+    document.getElementById("controlls").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + window.innerHeight / 2.2 - window.innerHeight / 15 + "px";
+    changebuttons(window.innerHeight / 15 + "px",window.innerHeight / 3.6 + "px")
+    document.getElementById("canvas").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + "px";
+    document.getElementById("settingsPage2").style.left = window.innerWidth - window.innerWidth / 1.1 + "px";
+    document.getElementById("canvas").style.height = window.innerHeight / 1.2 + "px";
+    document.getElementById("canvas").style.width = window.innerHeight / 2.2 + "px";
+    document.getElementById("settingsPage2").style.height = window.innerHeight / 1.2 + "px";
+    document.getElementById("settingsPage2").style.width = window.innerHeight / 2.2 + "px";
+    document.getElementById("2display").style.height = window.innerHeight / 6 + "px";
+    document.getElementById("2display").style.width = window.innerHeight / 6 + "px";
+    document.getElementById("2display").style.top = window.innerHeight / 20 + "px";
+    document.getElementById("settings").style.top = window.innerHeight / 20 + window.innerHeight / 6 + window.innerHeight / 40 + "px";
+    document.getElementById("settings").style.height = window.innerHeight / 6 +  "px";
+    document.getElementById("settings").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + window.innerHeight / 2.2 + window.innerWidth / 20 + "px";
+    document.getElementById("2display").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + window.innerHeight / 2.2 + window.innerWidth / 20 + "px";
+    document.getElementById("points").style.left = window.innerWidth / 2 - window.innerWidth / 2.7 + "px";
+    document.getElementById("points").style.top = window.innerHeight / 20 + window.innerHeight / 1.2 + "px";
+    if (window.innerWidth / 2 - window.innerWidth / 2.7 + window.innerHeight / 2.2 + window.innerWidth / 20 + window.innerHeight / 6 > window.innerWidth)
+    {
+        document.getElementById("canvas").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("settingsPage2").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("points").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("controlls2").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("controlls").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerHeight / 2.2 - window.innerHeight / 15 + "px";
+        document.getElementById("2display").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerHeight / 2.2 + window.innerWidth / 20 + "px";
+        document.getElementById("settings").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerHeight / 2.2 + window.innerWidth / 20 + "px";
+    }
+    if (window.innerWidth / 2 - window.innerWidth / 2 + window.innerHeight / 2.2 + window.innerWidth / 20 + window.innerHeight / 6 > window.innerWidth)
+    {
+        document.getElementById("canvas").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("settingsPage2").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("points").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("controlls2").style.left = window.innerWidth / 2 - window.innerWidth / 2 + "px";
+        document.getElementById("controlls").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerWidth / 1.5 - window.innerHeight / 15 + "px";
+        document.getElementById("2display").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerWidth / 1.5 + "px";
+        document.getElementById("settings").style.left = window.innerWidth / 2 - window.innerWidth / 2 + window.innerWidth / 1.5 + "px";
+        document.getElementById("canvas").style.width = window.innerWidth / 1.5 + "px";
+        document.getElementById("settingsPage2").style.width = window.innerWidth / 1.5 + "px";
+        document.getElementById("2display").style.width = window.innerWidth / 4 + "px";
+        document.getElementById("settings").style.width = window.innerWidth / 4 + "px";
+    }
+    
+}
+changecolor();

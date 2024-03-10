@@ -1,0 +1,20 @@
+{
+  "HRPG x Cloudy Games Tournament": {
+    "running": false,
+    "time": 180,
+    "speed": 250,
+    "lives": 2,
+    "multi": 1,
+    "ppenalty": 500,
+    "tpenalty": 0
+  },
+  "Debug Tournament": {
+    "running": false,
+    "time": 180,
+    "speed": 250,
+    "lives": 2,
+    "multi": 1,
+    "ppenalty": 500,
+    "tpenalty": 0
+  }
+}
