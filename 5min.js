@@ -794,8 +794,6 @@ function fallenShape()
 
 function srotate(dir)
 {
- 
- 
   let i = 0;
   if (shapeRotation + dir == 5 || shapeRotation + dir == 0)
   {
@@ -846,7 +844,14 @@ function srotate(dir)
     }
     i += 1;
   }
-  
+  if (shapetype > shapetypeb * 4 || shapetype < shapetypeb * 4 - 3)
+  {
+    shapetype = shapetypeb * 4 - 3;
+    shapeRotation = 1;
+    generateShape(4,0,"canvas");
+    
+  }
+ 
   refreshboard();
   drawShape();
 
