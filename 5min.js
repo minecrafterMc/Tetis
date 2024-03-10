@@ -1,4 +1,5 @@
-if (sessionStorage.getItem("name") == undefined)
+const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+if (gamedata.name == undefined)
 {
   location.href = "index.html";
 }
@@ -138,81 +139,14 @@ class cell
   }
 }
 var colorIndex = sessionStorage.getItem("colorid");
-var colorPaletes = [
-  {
-    "name": "default",
-    "shapecolor": "#fc0303",
-    "emptycolor": "#039dfc",
-    "trailcolor": "#0877ff",
-    "fallencolor": "#ababab",
-    "textcolor": "white"
+var colorPaletes = gamedata.colors;
 
-},
-  {
-    "name": "ocean",
-    "shapecolor": "cyan",
-    "emptycolor": "darkblue",
-    "trailcolor": "lightblue",
-    "fallencolor": "grey",
-    "textcolor": "white"
-},
-  {
-    "name": "blue light mode",
-    "shapecolor": "cyan",
-    "emptycolor": "white",
-    "trailcolor": "lightblue",
-    "fallencolor": "grey",
-    "textcolor": "blue"
-},
-  {
-    "name": "ultra dark mode",
-    "shapecolor": "darkgrey",
-    "emptycolor": "black",
-    "trailcolor": "grey",
-    "fallencolor": "lightgrey",
-    "textcolor": "white"
-},
-  {
-    "name": "matrix",
-    "shapecolor": "green",
-    "emptycolor": "black",
-    "trailcolor": "lime",
-    "fallencolor": "darkgreen",
-    "textcolor": "white"
-},
-  {
-    "name": "blue dark mode",
-    "shapecolor": "darkblue",
-    "emptycolor": "black",
-    "trailcolor": "blue",
-    "fallencolor": "grey",
-    "textcolor": "white"
-},
-  {
-
-    "name": "amogus",
-    "shapecolor": "red",
-    "emptycolor": "grey",
-    "trailcolor": "grey",
-    "fallencolor": "white",
-    "textcolor": "white"
-},
-  {
-
-    "name": "1.5",
-    "shapecolor": "#105b66",
-    "emptycolor": "#292929",
-    "trailcolor": "#283d40",
-    "fallencolor": "#092529",
-    "textcolor": "white"
-}
-]
 var maxcolor = colorPaletes.length - 1;
-var maxshapeid = 7;
+var maxshapeid = (gamedata.blocks.length - 1) / 4;
 var runID;
 var cell1 = new cell(0, 0, 25, 25, 0, 1, "blue");
 drawCell(cell1);
-var lives = sessionStorage.getItem("lives");
+var lives = gamedata.lives;
 var shapetype = 1;
 var ip;
 text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
@@ -236,7 +170,7 @@ var IID = NaN;
 var falling = false;
 var menucooldown = false;
 var pointsfrozen = true;
-var timeleft = sessionStorage.getItem("time");
+var timeleft = gamedata.time;
 var whurl;
 var fallencolor = "#092529";
 var emptycolor = "#292929";
@@ -252,7 +186,7 @@ setup();
 tournament();
 generateShape(0, 0, "dis");
 generateShape(4, 0, "canvas");
-var tickID = setInterval(tick, sessionStorage.getItem("speed"));
+var tickID = setInterval(tick, gamedata.updateTimer);
 var timerID = setInterval(timer, 1000);
 setInterval(screenadjust, 100);
 if (sessionStorage.getItem("soundtoggle") == true)
@@ -335,6 +269,7 @@ function changecolor()
     refreshboard();
     drawShape();
     sessionStorage.setItem("colorid", colorIndex);
+
   }
   else {
     colorIndex = colorIndex - 1;
@@ -428,765 +363,27 @@ function generateShape(x, y, dis)
   {
     shapetype2 = shapetypec * 4 + 1 - 4;
   }
-  if (shapetype2 == -1)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x;
-    shape2[18] = y;
-    shape2[19] = y;
-  }
-  if (shapetype2 == 1)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x + 1;
-    shape2[17] = x + 2;
-    shape2[18] = y + 1;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 2)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y + 1;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 3)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y + 1;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 4)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y + 2;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 5)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y + 2;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 6)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y + 1;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 7)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y + 2;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 8)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y + 1;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 9)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 10)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 11)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 12)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 13)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 14)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", true, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y + 3;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 15)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 16)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", true, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", true, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y + 3;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 17)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 18)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x + 1;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 19)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 20)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 21)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 22)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 23)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 24)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 25)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 26)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", false, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 27)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", false, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", false, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 2;
-    shape2[18] = y;
-    shape2[19] = y + 1;
-  }
-  if (shapetype2 == 28)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", true, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", false, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", false, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", false, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", false, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", false, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", false, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", false, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", false, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", false, 15);
-    shape2[16] = x;
-    shape2[17] = x + 1;
-    shape2[18] = y;
-    shape2[19] = y + 2;
-  }
-  if (shapetype2 == 29)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", true, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", true, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 30)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", true, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", true, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 31)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", true, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", true, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
-  if (shapetype2 == 32)
-  {
-    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", false, 0);
-    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", true, 1);
-    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", true, 2);
-    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", true, 3);
-    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", true, 4);
-    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", true, 5);
-    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", true, 6);
-    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", false, 7);
-    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", true, 8);
-    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", true, 9);
-    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", true, 10);
-    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", true, 11);
-    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", false, 12);
-    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", true, 13);
-    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", false, 14);
-    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", true, 15);
-    shape2[16] = x;
-    shape2[17] = x + 3;
-    shape2[18] = y;
-    shape2[19] = y + 3;
-  }
+
+    shape2[0] = new cell(x, y, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][0], 0);
+    shape2[1] = new cell(x + 1, y, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][1], 1);
+    shape2[2] = new cell(x + 2, y, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][2], 2);
+    shape2[3] = new cell(x + 3, y, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][3], 3);
+    shape2[4] = new cell(x, y + 1, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][4], 4);
+    shape2[5] = new cell(x + 1, y + 1, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][5], 5);
+    shape2[6] = new cell(x + 2, y + 1, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][6], 6);
+    shape2[7] = new cell(x + 3, y + 1, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][7], 7);
+    shape2[8] = new cell(x, y + 2, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][8], 8);
+    shape2[9] = new cell(x + 1, y + 2, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][9], 9);
+    shape2[10] = new cell(x + 2, y + 2, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][10], 10);
+    shape2[11] = new cell(x + 3, y + 2, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][11], 11);
+    shape2[12] = new cell(x, y + 3, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][12], 12);
+    shape2[13] = new cell(x + 1, y + 3, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][13], 13);
+    shape2[14] = new cell(x + 2, y + 3, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][14], 14);
+    shape2[15] = new cell(x + 3, y + 3, 25, 25, 0, 1, "blue", gamedata.blocks[shapetype2][15], 15);
+    shape2[16] = x + gamedata.blocks[shapetype2][16];
+    shape2[17] = x + gamedata.blocks[shapetype2][17];
+    shape2[18] = y + gamedata.blocks[shapetype2][18];
+    shape2[19] = y + gamedata.blocks[shapetype2][19];
   recolor();
   if (dis == "canvas" || dis == undefined)
   {
@@ -1409,12 +606,12 @@ function clearboard()
     i += 1;
   }
   pointsfrozen = false;
-  points = points - Number(sessionStorage.getItem("penaltypoint"));
+  points = points - Number(gamedata.ppenalty);
   backgroundcolor = points;
   pointsfrozen = true;
   if (timeleft > 0)
   {
-    timeleft = timeleft - Number(sessionStorage.getItem("penaltytime"));
+    timeleft = timeleft - Number(gamedata.tpenalty);
     if (timeleft < 0)
     {
       timeleft = 1;
@@ -1450,7 +647,7 @@ function checkRows()
           a += 1;
         }
         pointsfrozen = false;
-        points += 500 * sessionStorage.getItem("pointmulti");
+        points += 500 * gamedata.multi;
         backgroundcolor = points;
         pointsfrozen = true;
         break;
@@ -1597,6 +794,8 @@ function fallenShape()
 
 function srotate(dir)
 {
+ 
+ 
   let i = 0;
   if (shapeRotation + dir == 5 || shapeRotation + dir == 0)
   {
@@ -1647,6 +846,10 @@ function srotate(dir)
     }
     i += 1;
   }
+  
+  refreshboard();
+  drawShape();
+
 }
 
 function print()
@@ -1906,14 +1109,6 @@ function tick()
   checkLose();
   if (pause)
   {
-
-    if (colorIndex == 6 - (colorPaletes.length - 1))
-    {
-      maxshapeid = 8;
-    }
-    else {
-      maxshapeid = 7;
-    }
     document.getElementById("points").innerHTML = points;
     checkRows();
     checkEmptyRows();
@@ -1935,13 +1130,13 @@ function tick()
       falling = false;
       generateShape(4, 0);
       pointsfrozen = false;
-      points += 50 * sessionStorage.getItem("pointmulti");
+      points += 50 * gamedata.multi;
       backgroundcolor = points;
       pointsfrozen = true;
     }
     smove(0, 1);
   }
-  if (anticheatpoints - points > 600 * sessionStorage.getItem("multi") && sessionStorage.getItem("comp"))
+  if (anticheatpoints - points > 600 * gamedata.multi && sessionStorage.getItem("comp"))
   {
     grabIP();
     anticheatpoints = points;
@@ -1966,7 +1161,7 @@ function onetick()
     fallenShape();
     generateShape(4, 0);
     pointsfrozen = false;
-    points += 50 * sessionStorage.getItem("pointmulti");
+    points += 50 * gamedata.multi;
     backgroundcolor = points;
     pointsfrozen = true;
   }
@@ -2070,7 +1265,7 @@ function timer()
     }
     if (timeleft == 0)
     {
-      document.getElementById("loosetext").innerHTML = "Time's up!<br>Mode: " + sessionStorage.getItem("name");
+      document.getElementById("loosetext").innerHTML = "Time's up!<br>Mode: " + gamedata.name;
       lives = 1;
       boardArr[1].exist = true;
     }
@@ -2082,7 +1277,7 @@ if (colorIndex > colorPaletes.length - 1)
 {
   colorIndex = 0;
 }
-document.getElementById("loosetext").innerHTML = "YOU LOST<br>mode: " + sessionStorage.getItem("name");
+document.getElementById("loosetext").innerHTML = "YOU LOST<br>mode: " + gamedata.name;
 document.getElementById("colorname").innerHTML = colorPaletes[colorIndex].name;
 document.getElementById("loose").style.backgroundColor = colorPaletes[colorIndex].emptycolor;
 document.getElementById("colorname").style.color = colorPaletes[colorIndex].textcolor;
