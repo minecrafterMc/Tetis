@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    body{
+      background: rgb(121,0,255);
+background: radial-gradient(circle, rgba(121,0,255,1) 0%, rgba(39,44,197,1) 16%, rgba(50,63,180,1) 30%, rgba(67,91,200,1) 50%, rgba(62,110,232,1) 63%, rgba(87,141,237,1) 78%, rgba(0,206,255,1) 100%);
+      color: white;
+    }
+    button{
+      background-color: #f3ff08;
+      color: black;
+      width: 130px;
+      height: 65px;
+    }
+    .navigation{
+      background-color: #a103fc;
+      color: white;
+    }
+    .tournament{
+   background-color: #f27272;
+    }
+
+  </style>
+</head>
+
+<body>
+  <center>
+  <img width="350" src="TetisLogo.png"><br><h2>Bonus Mode Selection</h2><br><br>
+  <table>
+    <tr>
+      <td>
+  <button class="navigation" onclick="openfeatured()">category 1: featured</button>
+  </td>
+  <td>
+  <button class="navigation" onclick="openspeed()">category 2: speed</button>
+  </td>
+    </tr>
+    <tr>
+      <td>
+  <button class="navigation" onclick="opentime()">category 3: time</button>
+      </td>
+      <td>
+  <button class="navigation" onclick="opencustom()">category 4: custom</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+  <button class="navigation" onclick="openall()">open all</button>
+      </td>
+      <td>
+        <button class="navigation" onclick="closeall()">close all</button>
+      </td>
+    </tr>
+  <br>
+  </table>
+  <br><br>
+  
+  <div id="featured"><button onclick="startcustommode(-1,300,'Easy',2,0.5,0,0,false)">Easy Mode</button><button onclick="startcustommode(-1,250,'Infinite',-1,1,0,0,false)">Infinite</button></div>
+  <div id="speed"><button onclick="startcustommode(-1,125,'double speed',2,2,0,0,false)">Double Speed</button><button onclick="startcustommode(120,80,'hyper speed',10,3,1500,0,false)">Hyper Speed</button></div>
+  <div id="time"><button onclick="startcustommode(300,250,'5 minutes',2,1,500,20,false)">5 minutes</button><button onclick="startcustommode(60,250,'1 minute',1,1,0,0,false)">1 minute</button></div>
+  <div id="custom"><div id="customeditor">
+    <h3>quick custom mode editor</h3>
+    <p>name:</p><input type="text" id="name" value="Custom Mode"><br>
+    <p>how many frames per sec?</p><input type="number" id="fps" value="4"><br>
+    <p>time limit (in sec) (set -1 for infinite):</p><input type="number" id="timelimit" value="-1"><br>
+    <p>number of lives:</p><input type="number" id="lives" value="1"><br>
+    <p>point penalty for loosing a live:</p><input type="number" id="ppenalty" value="0"><br>
+    <p>time penalty for loosing a live:</p><input type="number" id="tpenalty" value="0"><br>
+    
+    </div><br>
+  <button onclick="startcustommode(document.getElementById('timelimit').value,1000 / document.getElementById('fps').value,document.getElementById('name').value,document.getElementById('lives').value,1,document.getElementById('ppenalty').value,document.getElementById('tpenalty').value,false)">Start Quick Custom Mode</button><br><br>
+  <button
+    onclick="openFileSelector();">Load from file</button>
+  </div><br><br><br>
+  <button class="navigation" onclick="window.location.href = 'index.html'" >Back To Main Menu</button>
+  </center>
+  <script src="bonus.js"></script>
+</body>
+
+</html>
