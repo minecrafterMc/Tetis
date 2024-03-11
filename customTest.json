@@ -163,6 +163,11 @@
         [
             true,true,false,false,false,true,false,false,false,true,false,false,false,false,false,false,0,1,0,2
         ]
-    ]
+    ],
+    "enableMods": true,
+    "tick": "",
+    "onBlockFall": "",
+    "onLineCleared": "",
+    "onDeath": ""
     
 }

@@ -198,7 +198,12 @@ background: radial-gradient(circle, rgba(121,0,255,1) 0%, rgba(39,44,197,1) 16%,
               [
                 true, true, false, false, false, true, false, false, false, true, false, false, false, false, false, false, 0, 1, 0, 2
               ]
-            ]
+            ],
+    "enableMods": true,
+    "tick": "console.log('tick')",
+    "onBlockFall": "alert('block fell')",
+    "onLineCleared": "alert('line cleared')",
+    "onDeath": "alert('you suck')"
           }));
 
         sessionStorage.setItem("comp", comp);

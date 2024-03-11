@@ -1,4 +1,8 @@
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+if (gamedata.enableMods)
+{
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
+}
 if (gamedata.name == undefined)
 {
   location.href = "index.html";
@@ -556,6 +560,10 @@ function checkLose()
     {
       if (lives == 1)
       {
+        if (gamedata.enableMods)
+        {
+          eval(gamedata.onDeath);
+        }
         playsound("lose.mp3");
         clearInterval(tickID);
         document.getElementById("loose").style.display = "block";
@@ -645,6 +653,10 @@ function checkRows()
           boardArr[i].flipExists();
           i += 1;
           a += 1;
+        }
+        if (gamedata.enableMods)
+        {
+          eval(gamedata.onLineCleared);
         }
         pointsfrozen = false;
         points += 500 * gamedata.multi;
@@ -785,6 +797,10 @@ function fallenShape()
   {
     navigator.vibrate(100);
   }
+  if(gamedata.enableMods)
+    {
+    eval(gamedata.onBlockFall);
+    }
   shapetypeb = shapetypec;
   shapetypec = RandomInt(1, maxshapeid);
   generateShape(0, 0, "dis");
@@ -1140,6 +1156,10 @@ function tick()
       pointsfrozen = true;
     }
     smove(0, 1);
+    if(gamedata.enableMods)
+    {
+    eval(gamedata.tick);
+    }
   }
   if (anticheatpoints - points > 600 * gamedata.multi && sessionStorage.getItem("comp"))
   {

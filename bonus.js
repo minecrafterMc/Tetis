@@ -242,7 +242,11 @@ function startcustommode(time,speed,name,lives,multi,pointpenalty,timepenalty,co
         [
             true,true,false,false,false,true,false,false,false,true,false,false,false,false,false,false,0,1,0,2
         ]
-    ]
+    ],
+    "enableMods": false,
+    "tick": "",
+    "onBlockFall": "",
+    "onDeath": ""
 }));
   
   sessionStorage.setItem("comp", comp);
