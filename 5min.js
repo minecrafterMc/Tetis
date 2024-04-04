@@ -17,7 +17,7 @@ if (urlParams.has('name'))
 }
 if (gamedata.enableMods)
 {
-  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trust the author of this mod, leave the site imeadetly!");
   
 }
 async function tournament()
@@ -28,7 +28,7 @@ async function tournament()
     let list;
     list = await FetchTournamentList();
     let thisname = sessionStorage.getItem("name");
-    if (!list[thisname].running || list[thisname].time != sessionStorage.getItem("time") || list[thisname].speed != sessionStorage.getItem("speed") || list[thisname].multi != sessionStorage.getItem("pointmulti") || list[thisname].ppenalty != sessionStorage.getItem("penaltypoint") || list[thisname].tpenalty != sessionStorage.getItem("penaltytime"))
+    if (!list[thisname].running)
     {
       location.href = "index.html";
     }
@@ -36,6 +36,7 @@ async function tournament()
       runID = RandomInt(1, 99999);
       username = sessionStorage.getItem("dcname");
     }
+    gamedata = list[thisname];
   }
 }
 
