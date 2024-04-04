@@ -245,6 +245,7 @@ function startcustommode(time,speed,name,lives,multi,pointpenalty,timepenalty,co
     ],
     "enableMods": false,
     "tick": "",
+    "onLoad": "",
     "onBlockFall": "",
     "onDeath": ""
 }));

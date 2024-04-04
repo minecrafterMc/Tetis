@@ -1,11 +1,11 @@
 {
-    "name": "test",
+    "name": "classic",
     "time": -1,
     "updateTimer": 250,
-    "lives": 7,
-    "multi": 2,
-    "ppenalty": 500,
-    "tpenalty": -5,
+    "lives": 1,
+    "multi": 1,
+    "ppenalty": 0,
+    "tpenalty": 0,
     "colors": [
   {
     "name": "default",
@@ -164,7 +164,8 @@
             true,true,false,false,false,true,false,false,false,true,false,false,false,false,false,false,0,1,0,2
         ]
     ],
-    "enableMods": true,
+    "enableMods": false,
+    "onLoad": "",
     "tick": "",
     "onBlockFall": "",
     "onLineCleared": "",
