@@ -1,11 +1,24 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+if (urlParams.has('name'))
+{
+  sessionStorage.setItem("gamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
+
+}
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+
+if (gamedata == null)
+{
+  location.href = "index.html";
+}
+if (urlParams.has('name'))
+{
+  
+}
 if (gamedata.enableMods)
 {
   alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
-}
-if (gamedata.name == undefined)
-{
-  location.href = "index.html";
+  
 }
 async function tournament()
 {
@@ -153,10 +166,10 @@ drawCell(cell1);
 var lives = gamedata.lives;
 var shapetype = 1;
 var ip;
-/*text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
+text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
   let ipRegex = /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
   ip = data.match(ipRegex)[0];
-});*/
+});
 var shapetypeb = 1;
 var shapetypec = RandomInt(1, maxshapeid);
 var shapetyped = 0;
@@ -227,6 +240,15 @@ async function FetchData(Datatofetch) {
   let tournaments = await response.json();
   return tournaments;
 }
+function downloadObjectAsJson(exportObj, exportName){
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    let downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
 function changecolor()
 {
   colorIndex = Number(colorIndex) + 1;
@@ -1102,6 +1124,10 @@ function setup()
       b += 1;
     }
     i += 1;
+  }
+  if (gamedata.enableMods)
+  {
+    eval(gamedata.onLoad);
   }
 
 }
