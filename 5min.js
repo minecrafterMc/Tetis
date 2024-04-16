@@ -1,5 +1,6 @@
 
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+alert(gamedata);
 if (gamedata == null)
 {
   location.href = "index.html";
