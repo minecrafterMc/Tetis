@@ -1,19 +1,8 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-if (urlParams.has('name'))
-{
-  sessionStorage.setItem("gamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
 
-}
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
-
 if (gamedata == null)
 {
   location.href = "index.html";
-}
-if (urlParams.has('name'))
-{
-  
 }
 if (gamedata.enableMods)
 {
@@ -223,6 +212,11 @@ var msg = {
 }
 
 //fetch(whurl + "?wait=true", {"method":"POST", "headers": {"content-type": "application/json"},"body": JSON.stringify(msg)});
+function copyurl()
+{
+  navigator.clipboard.writeText("https://minecraftermc.github.io/Tetis/playtetis.html?name=" + gamedata.name + "&time=" + gamedata.time + "&speed=" + gamedata.updateTimer + "&lives=" + gamedata.lives + "&multi=" + gamedata.multi + "&ppenalty=" + gamedata.ppenalty + "&tpenalty=" + gamedata.tpenalty);
+  
+}
 function playsound(sound)
 {
   if (!document.getElementById("soundtoggle").checked)
