@@ -3,7 +3,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 if (urlParams.has('name'))
 {
-  sessionStorage.setItegamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
+  sessionStorage.setItem("gamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
+
 
 }
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
