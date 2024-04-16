@@ -8,7 +8,33 @@ if (gamedata == null)
 if (gamedata.enableMods)
 {
   alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trust the author of this mod, leave the site imeadetly!");
+if (gamedata == null)
+{
+  location.href = "index.html";
+}
+if (gamedata.enableMods)
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+if (urlParams.has('name'))
+{
+  sessionStorage.setItegamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
+
+}
+const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+if (gamedata == null)
+{
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trust the author of this mod, leave the site imeadetly!");
   
+}
+if (urlParams.has('name'))
+{
+  
+}
+if (gamedata.enableMods)
+{
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
+  
+
 }
 async function tournament()
 {
