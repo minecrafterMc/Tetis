@@ -1,15 +1,22 @@
+
+const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
+if (gamedata == null)
+{
+  location.href = "index.html";
+}
+if (gamedata.enableMods)
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 if (urlParams.has('name'))
 {
-  sessionStorage.setItem("gamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
+  sessionStorage.setItegamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
 
 }
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
-
 if (gamedata == null)
 {
-  location.href = "index.html";
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trust the author of this mod, leave the site imeadetly!");
+  
 }
 if (urlParams.has('name'))
 {
@@ -28,7 +35,7 @@ async function tournament()
     let list;
     list = await FetchTournamentList();
     let thisname = sessionStorage.getItem("name");
-    if (!list[thisname].running || list[thisname].time != sessionStorage.getItem("time") || list[thisname].speed != sessionStorage.getItem("speed") || list[thisname].multi != sessionStorage.getItem("pointmulti") || list[thisname].ppenalty != sessionStorage.getItem("penaltypoint") || list[thisname].tpenalty != sessionStorage.getItem("penaltytime"))
+    if (!list[thisname].running)
     {
       location.href = "index.html";
     }
@@ -36,6 +43,7 @@ async function tournament()
       runID = RandomInt(1, 99999);
       username = sessionStorage.getItem("dcname");
     }
+    gamedata = list[thisname];
   }
 }
 
@@ -222,6 +230,11 @@ var msg = {
 }
 
 //fetch(whurl + "?wait=true", {"method":"POST", "headers": {"content-type": "application/json"},"body": JSON.stringify(msg)});
+function copyurl()
+{
+  navigator.clipboard.writeText("https://minecraftermc.github.io/Tetis/playtetis.html?name=" + gamedata.name + "&time=" + gamedata.time + "&speed=" + gamedata.updateTimer + "&lives=" + gamedata.lives + "&multi=" + gamedata.multi + "&ppenalty=" + gamedata.ppenalty + "&tpenalty=" + gamedata.tpenalty);
+  
+}
 function playsound(sound)
 {
   if (!document.getElementById("soundtoggle").checked)

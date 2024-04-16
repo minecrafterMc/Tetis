@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  wait...
+<script>
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+var gamedata = { "colors": [
+   {
+     "name": "default",
+     "shapecolor": "#fc0303",
+     "emptycolor": "#039dfc",
+     "trailcolor": "#0877ff",
+     "fallencolor": "#ababab",
+     "textcolor": "white"
+
+              },
+   {
+     "name": "ocean",
+     "shapecolor": "cyan",
+     "emptycolor": "darkblue",
+     "trailcolor": "lightblue",
+     "fallencolor": "grey",
+     "textcolor": "white"
+              },
+   {
+     "name": "blue light mode",
+     "shapecolor": "cyan",
+     "emptycolor": "white",
+     "trailcolor": "lightblue",
+     "fallencolor": "grey",
+     "textcolor": "blue"
+              },
+   {
+     "name": "ultra dark mode",
+     "shapecolor": "darkgrey",
+     "emptycolor": "black",
+     "trailcolor": "grey",
+     "fallencolor": "lightgrey",
+     "textcolor": "white"
+              },
+   {
+     "name": "matrix",
+     "shapecolor": "green",
+     "emptycolor": "black",
+     "trailcolor": "lime",
+     "fallencolor": "darkgreen",
+     "textcolor": "white"
+              },
+   {
+     "name": "blue dark mode",
+     "shapecolor": "darkblue",
+     "emptycolor": "black",
+     "trailcolor": "blue",
+     "fallencolor": "grey",
+     "textcolor": "white"
+              },
+   {
+
+     "name": "amogus",
+     "shapecolor": "red",
+     "emptycolor": "grey",
+     "trailcolor": "grey",
+     "fallencolor": "white",
+     "textcolor": "white"
+              },
+   {
+
+     "name": "1.5",
+     "shapecolor": "#105b66",
+     "emptycolor": "#292929",
+     "trailcolor": "#283d40",
+     "fallencolor": "#092529",
+     "textcolor": "white"
+              }
+            ],
+ "blocks": [
+              [
+                false, false, false, false, false, true, false, false, false, true, true, false, false, true, false, false, 1, 2, 1, 3
+              ],
+              [
+                false, false, false, false, false, true, false, false, false, true, true, false, false, true, false, false, 1, 2, 1, 3
+              ],
+              [
+                false, false, false, false, false, true, false, false, true, true, true, false, false, false, false, false, 0, 2, 1, 2
+              ],
+              [
+                false, false, false, false, false, true, false, false, true, true, false, false, false, true, false, false, 0, 1, 1, 3
+              ],
+              [
+                false, false, false, false, false, false, false, false, true, true, true, false, false, true, false, false, 0, 2, 2, 3
+              ],
+              [
+                false, false, false, false, false, false, false, false, false, true, true, false, true, true, false, false, 0, 2, 2, 3
+              ],
+              [
+                false, false, false, false, true, false, false, false, true, true, false, false, false, true, false, false, 0, 1, 1, 3
+              ],
+              [
+                false, false, false, false, false, false, false, false, false, true, true, false, true, true, false, false, 0, 2, 2, 3
+              ],
+              [
+                false, false, false, false, true, false, false, false, true, true, false, false, false, true, false, false, 0, 1, 1, 3
+              ],
+              [
+                true, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, 0, 1, 0, 1
+              ],
+              [
+                true, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, 0, 1, 0, 1
+              ],
+              [
+                true, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, 0, 1, 0, 1
+              ],
+              [
+                true, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, 0, 1, 0, 1
+              ],
+              [
+                true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, 0, 0, 0, 3
+              ],
+              [
+                false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, 0, 3, 3, 3
+              ],
+              [
+                true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, 0, 0, 0, 3
+              ],
+              [
+                false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, 0, 3, 3, 3
+              ],
+              [
+                true, false, false, false, true, true, true, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                false, true, true, false, false, true, false, false, false, true, false, false, false, false, false, false, 1, 2, 0, 2
+              ],
+              [
+                true, true, true, false, false, false, true, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                false, true, false, false, false, true, false, false, true, true, false, false, false, false, false, false, 0, 1, 0, 2
+              ],
+              [
+                true, true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                false, true, false, false, true, true, false, false, true, false, false, false, false, false, false, false, 0, 1, 0, 2
+              ],
+              [
+                true, true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                false, true, false, false, true, true, false, false, true, false, false, false, false, false, false, false, 0, 1, 0, 2
+              ],
+              [
+                false, false, true, false, true, true, true, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                true, false, false, false, true, false, false, false, true, true, false, false, false, false, false, false, 0, 1, 0, 2
+              ],
+              [
+                true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, false, 0, 2, 0, 1
+              ],
+              [
+                true, true, false, false, false, true, false, false, false, true, false, false, false, false, false, false, 0, 1, 0, 2
+              ]
+            ],
+ "enableMods": false,
+ "tick": "",
+ "onLoad": "",
+ "onBlockFall": "",
+ "onLineCleared": "",
+ "onDeath": ""
+ }
+  if (urlParams.has('name'))
+
+{
+  gamedata.name = urlParams.getAll("name");
+  gamedata.time = urlParams.getAll("time");
+  gamedata.updateTimer = urlParams.getAll("speed");
+  gamedata.lives = urlParams.getAll("lives");
+  gamedata.multi = urlParams.getAll("multi");
+  gamedata.ppenalty = urlParams.getAll("ppenalty");
+  gamedata.tpenalty = urlParams.getAll("tpenalty");
+  
+}
+sessionStorage.setItem("gamedata",JSON.stringify(gamedata));
+location.href = "https://minecraftermc.github.io/projectsFiles/Tetis/5min.html";
+</script>
+</body>
+
+</html>
