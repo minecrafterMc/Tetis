@@ -5,6 +5,7 @@ if (urlParams.has('name'))
 {
   sessionStorage.setItem("gamedata",FetchData('https://minecraftermc.github.io/Tetis/basic.json'));
 
+
 }
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
 if (gamedata == null)
