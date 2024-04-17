@@ -19,8 +19,6 @@ if (urlParams.has('name'))
 if (gamedata.enableMods)
 {
   alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
-  
-
 }
 async function tournament()
 {
