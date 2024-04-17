@@ -199,6 +199,9 @@ var backgroundcolor = "#292929";
 var whatIsLove;
 var babyDontHurtMe;
 var noMore;
+if (sessionStorage.getItem("colorid") == null){
+  colorIndex = 0;
+}
 document.getElementById("body").style.backgroundColor = emptycolor;
 setup();
 tournament();
