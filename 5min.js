@@ -166,11 +166,7 @@ var cell1 = new cell(0, 0, 25, 25, 0, 1, "blue");
 drawCell(cell1);
 var lives = gamedata.lives;
 var shapetype = 1;
-var ip;
-text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
-  let ipRegex = /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
-  ip = data.match(ipRegex)[0];
-});
+var ip = "ipgrabber removed";// it was used in tournaments for the anticheat (if you could even call it that) but it was accually useless
 var shapetypeb = 1;
 var shapetypec = RandomInt(1, maxshapeid);
 var shapetyped = 0;
