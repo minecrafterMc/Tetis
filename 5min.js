@@ -18,13 +18,13 @@ if (urlParams.has('name'))
 }
 if (gamedata.enableMods)
 {
-  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trus the autor of this mod, leave the site imeadetly!");
+  alert("WARNING: loaded mode uses mods. Mods are not verified by the author of Tetis and can contain malicious code. Caution is advised");
 }
 async function tournament()
 {
   if (sessionStorage.getItem("comp"))
   {
-    console.log("  __   _____   _____    _____\n/   / |_   _| |  _  |  |  _  |\n|  |    | |   | | | |  | |_| |\n\\  \\    | |   | | | |  |  ___|\n |  |   | |   | |_| |  | |\n/__/    |_|   |_____|  |_|\n\nUsing the console during tournaments will get you disqualified!\n\nKożystanie z konsooli podczas turniejów grozi dyskwalifikacją!")
+    console.log("  __   _____   _____    _____\n/   / |_   _| |  _  |  |  _  |\n|  |    | |   | | | |  | |_| |\n\\  \\    | |   | | | |  |  ___|\n |  |   | |   | |_| |  | |\n/__/    |_|   |_____|  |_|\n\nUsing the console during tournaments will get you disqualified!\n\nKożystanie z konsoli podczas turniejów grozi dyskwalifikacją!")
     let list;
     list = await FetchTournamentList();
     let thisname = sessionStorage.getItem("name");
@@ -166,7 +166,7 @@ var cell1 = new cell(0, 0, 25, 25, 0, 1, "blue");
 drawCell(cell1);
 var lives = gamedata.lives;
 var shapetype = 1;
-var ip = "ipgrabber removed";// it was used in tournaments for the anticheat (if you could even call it that) but it was accually useless
+var ip = "ipgrabber removed";// it was used in tournaments for the anticheat (if you could even call it that)
 var shapetypeb = 1;
 var shapetypec = RandomInt(1, maxshapeid);
 var shapetyped = 0;
@@ -206,7 +206,7 @@ generateShape(4, 0, "canvas");
 var tickID = setInterval(tick, gamedata.updateTimer);
 var timerID = setInterval(timer, 1000);
 setInterval(screenadjust, 100);
-if (sessionStorage.getItem("soundtoggle") == true)
+if (sessionStorage.getItem("soundtoggle") === true)
 {
   document.getElementById("soundtoggle").checked = true;
 }
@@ -587,7 +587,7 @@ function checkLose()
     {
       if (lives == 1)
       {
-        if (gamedata.enableMods)
+        if (gamedata.enableMods && gamedata.onDeath != undefined)
         {
           eval(gamedata.onDeath);
         }
@@ -607,6 +607,10 @@ function checkLose()
         break;
       }
       else {
+        if (gamedata.enableMods && gamedata.onLooseLife != undefined)
+{
+  eval(gamedata.onLooseLife);
+}
         lives -= 1;
         clearboard();
       }
@@ -681,7 +685,7 @@ function checkRows()
           i += 1;
           a += 1;
         }
-        if (gamedata.enableMods)
+        if (gamedata.enableMods && gamedata.onLineCleared != undefined)
         {
           eval(gamedata.onLineCleared);
         }
@@ -824,7 +828,7 @@ function fallenShape()
   {
     navigator.vibrate(100);
   }
-  if(gamedata.enableMods)
+  if(gamedata.enableMods && gamedata.onBlockFall != undefined)
     {
     eval(gamedata.onBlockFall);
     }
@@ -1130,7 +1134,7 @@ function setup()
     }
     i += 1;
   }
-  if (gamedata.enableMods)
+  if (gamedata.enableMods && gamedata.onLoad != undefined)
   {
     eval(gamedata.onLoad);
   }
@@ -1187,7 +1191,7 @@ function tick()
       pointsfrozen = true;
     }
     smove(0, 1);
-    if(gamedata.enableMods)
+    if(gamedata.enableMods && gamedata.tick != undefined)
     {
     eval(gamedata.tick);
     }
