@@ -166,7 +166,7 @@ var cell1 = new cell(0, 0, 25, 25, 0, 1, "blue");
 drawCell(cell1);
 var lives = gamedata.lives;
 var shapetype = 1;
-var ip = "";
+var ip = "ipgrabber removed";// it was used in tournaments for the anticheat (if you could even call it that)
 var shapetypeb = 1;
 var shapetypec = RandomInt(1, maxshapeid);
 var shapetyped = 0;
