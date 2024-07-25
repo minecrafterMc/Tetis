@@ -1,4 +1,3 @@
-
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 if (urlParams.has('name'))
@@ -9,8 +8,7 @@ if (urlParams.has('name'))
 const gamedata = JSON.parse(sessionStorage.getItem("gamedata"));
 if (gamedata == null)
 {
-  alert("WARNING: loaded mode uses mods. Mods are not verified by the autor of Tetis and can contain malicious code. If you don't trust the author of this mod, leave the site imeadetly!");
-
+  location.href = "bonusselect.html";
 }
 if (urlParams.has('name'))
 {
