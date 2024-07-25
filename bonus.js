@@ -72,13 +72,15 @@ function startFromFile(gamedata,comp)
 {
   sessionStorage.setItem("gamedata",gamedata);
   sessionStorage.setItem("comp",comp);
-  location.href = "5min.html";
+  location.href = "modeDetails.html";
 }
-function startcustommode(time,speed,name,lives,multi,pointpenalty,timepenalty,comp)
+function startcustommode(time,speed,name,lives,multi,pointpenalty,timepenalty,comp,desc,author)
 {
   sessionStorage.setItem("gamedata",JSON.stringify(
     {
     "name": name,
+    "desc": desc,
+    "author": author,
     "time": time,
     "updateTimer": speed,
     "lives": lives,
@@ -251,7 +253,7 @@ function startcustommode(time,speed,name,lives,multi,pointpenalty,timepenalty,co
 }));
   
   sessionStorage.setItem("comp", comp);
-  window.location.href = '5min.html';
+  window.location.href = 'modeDetails.html';
 }
 if (sessionStorage.getItem("colorid") == undefined)
 {

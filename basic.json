@@ -1,5 +1,7 @@
 {
     "name": "classic",
+    "desc": "a classic mode",
+    "author": "Cloudy Games",
     "time": -1,
     "updateTimer": 250,
     "lives": 1,
