@@ -36,7 +36,7 @@ background: radial-gradient(circle, rgba(121,0,255,1) 0%, rgba(39,44,197,1) 16%,
   <h2 id="desc"></h2>
   <h3 id="author"></h3>
   <h2 id="details"></h2>
-  <button onclick="location.href = '5min.html'">Play</button><br><button>copy mode url to clipboard</button><br><br>
+  <button onclick="location.href = '5min.html'">Play</button><br><button onclick="copyurl()">copy mode url to clipboard</button><br><br>
   <button onclick="location.href = 'bonusselect.html'">Back</button>
   </center>
   <script>
@@ -61,6 +61,13 @@ background: radial-gradient(circle, rgba(121,0,255,1) 0%, rgba(39,44,197,1) 16%,
     else{
       getE("details").innerHTML += "disabled";
     }
+    function copyurl()
+
+{
+
+  navigator.clipboard.writeText("https://minecraftermc.github.io/Tetis/playtetis.html?name=" + data.name + "&time=" + data.time + "&speed=" + data.updateTimer + "&lives=" + data.lives + "&multi=" + data.multi + "&ppenalty=" + data.ppenalty + "&tpenalty=" + data.tpenalty);
+  
+}
   </script>
 </body>
 
