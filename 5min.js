@@ -25,7 +25,7 @@ async function tournament()
     console.log("  __   _____   _____    _____\n/   / |_   _| |  _  |  |  _  |\n|  |    | |   | | | |  | |_| |\n\\  \\    | |   | | | |  |  ___|\n |  |   | |   | |_| |  | |\n/__/    |_|   |_____|  |_|\n\nUsing the console during tournaments will get you disqualified!\n\nKożystanie z konsoli podczas turniejów grozi dyskwalifikacją!")
     let list;
     list = await FetchTournamentList();
-    let thisname = sessionStorage.getItem("name");
+    let thisname = gamedata.name;
     if (!list[thisname].running)
     {
       location.href = "index.html";
@@ -34,7 +34,7 @@ async function tournament()
       runID = RandomInt(1, 99999);
       username = sessionStorage.getItem("dcname");
     }
-    gamedata = list[thisname];
+    gamedata = list[thisname].data;
   }
 }
 

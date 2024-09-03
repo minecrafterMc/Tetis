@@ -1,25 +1,4 @@
 {
-  "HRPG x Cloudy Games Tournament": {
-    "running": false,
-    "time": 180,
-    "speed": 250,
-    "lives": 2,
-    "multi": 1,
-    "ppenalty": 500,
-    "tpenalty": 0
-  },
-  "Cloudy Direct Tournament": {
-    "running": false,
-    "time": 180,
-    "speed": 250,
-    "lives": 2,
-    "multi": 1,
-    "ppenalty": 500,
-    "tpenalty": 0
-  },
-  "Debug Tournament": {
-    "running": true,
-    "data":{
    "version": "1.0",
    "name": "Tetis 2.2 tournament",
    "desc": "A tournament celebrating the tetis 2.2 update",
@@ -1040,6 +1019,3 @@
    "onDeath": "",
    "onLooseLife": ""
 }
-    
-  }
-  }

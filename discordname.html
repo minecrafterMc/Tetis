@@ -31,34 +31,37 @@
     <img width="350" src="TetisLogo.png"><br>
     <h2>Enter Tournament</h2><br>
     <h2>Turniej</h2><br>
-    <p>ENG: <br>if you want to recieve rewards from this tournament, you need to enter your discord name. if you don't want to recieve rewards, just leave this space empty<br>PL: <br>jeśli chcesz dostawać nagrody z tego turnieju, podaj nazwę swojego profilu discord. jeśli nie chcesz dostawać nagród, zostaw to pole puste</p><br><h3>reward: a role on the polish cloudy games discord server<br>nagroda: rola na serwerze cloudy games</h3>
+    <p>ENG: <br>if you want to recieve rewards from this tournament, you need to enter your discord name. if you don't want to recieve rewards, just leave this space empty<br>PL: <br>jeśli chcesz dostawać nagrody z tego turnieju, podaj nazwę swojego profilu discord. jeśli nie chcesz dostawać nagród, zostaw to pole puste</p><br><h3>reward: a role on both of our cloudy games discord servers<br>nagroda: role na obu naszych serwerach Discord</h3>
     <!--<h3>Warning/Uwaga!<br>ENG:<br>The tournament is not live yet. You can press confirm to play, but your points will not be sent to the server.<br>PL: <br>Turniej się jeszcze nie rozpoczął . Możesz kliknąć "confirm" żeby zagrać, ale twoje punkty nie będą się liczyć do uzyskania nagrody</h3>-->
     <!--<h2>In collaboration with:<a href="https://discord.com/invite/5aDvB7ZM">HRPG</a><br>W kolaboracji z:<a href="https://discord.com/invite/5aDvB7ZM">HRPG</a></h2>-->
     <input id="discordname"><br><br>
-    <button onclick="startcustommode(180,250,'Cloudy Direct Tournament',2,1,500,0,true)">confirm</button>
+    <button onclick="startcustommode(json.debugTournament.data)">confirm</button>
     <br><br><br>
     <button class="navigation" onclick="window.location.href = 'index.html'">Back To Main Menu</button>
   </center>
   <script>
-    function startcustommode(time, speed, name, lives, multi, pointpenalty, timepenalty, comp)
-    {
-      if (document.getElementById("discordname").value != "")
-      {
-        sessionStorage.setItem("dcname", document.getElementById("discordname").value);
-      }
-      else {
-        sessionStorage.setItem("dcname", "!---!noname!---!");
-      }
-      sessionStorage.setItem("time", time);
-      sessionStorage.setItem("speed", speed);
-      sessionStorage.setItem("name", name);
-      sessionStorage.setItem("lives", lives);
-      sessionStorage.setItem("pointmulti", multi);
-      sessionStorage.setItem("penaltypoint", pointpenalty);
-      sessionStorage.setItem("penaltytime", timepenalty);
-      sessionStorage.setItem("comp", comp);
+  
+      async function getData() {
+  const url = "https://minecraftermc.github.io/Tetis/tournaments.json";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+function startcustommode(data) {
+  sessionStorage.setItem("gamedata",data)
+  sessionStorage.setItem("comp",true);
+  sessionStorage.setItem("dcname",document.getElementById("discordname").value);
       window.location.href = '5min.html';
     }
+    const json = getData()
   </script>
 </body>
 
