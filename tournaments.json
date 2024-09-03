@@ -17,7 +17,7 @@
     "ppenalty": 500,
     "tpenalty": 0
   },
-  "Debug Tournament": {
+  "DebugTournament": {
     "running": true,
     "data":{
    "version": "1.0",
